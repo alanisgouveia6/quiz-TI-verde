@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz sobre TI Verde</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Quiz sobre TI Verde</h1>
+        <div id="login-section">
+            <input type="text" id="username" placeholder="Digite seu nome" required>
+            <button id="login-button">Entrar</button>
+        </div>
+        <div id="quiz-section" style="display: none;">
+            <h2>Bem-vindo, <span id="user-name"></span>!</h2>
+            <form id="quiz-form"></form>
+            <button id="submit-quiz" style="display: none;">Enviar Respostas</button>
+        </div>
+        <div id="result-section" style="display: none;">
+            <h2>Resultados</h2>
+            <p id="score"></p>
+            <p id="ti-verde-text"></p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
