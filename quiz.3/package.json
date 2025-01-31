@@ -1,0 +1,25 @@
+{
+  "name": "quiz.3",
+  "version": "1.0.0",
+  "description": "quiz sobre ti verde",
+  "main": "script.js",
+  "scripts": {
+    "test": "npm test",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alanisgouveia6/quiz-TI-verde.git"
+  },
+  "keywords": [
+    "ti",
+    "verde",
+    "quiz"
+  ],
+  "author": "alanis",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alanisgouveia6/quiz-TI-verde/issues"
+  },
+  "homepage": "https://github.com/alanisgouveia6/quiz-TI-verde#readme"
+}
