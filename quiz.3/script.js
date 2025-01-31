@@ -105,6 +105,40 @@ function showResult() {
     document.getElementById('result-section').style.display = 'block';
     document.getElementById('result').innerText = `Você acertou ${score} de ${questions.length} perguntas.`;
     document.getElementById('more-info').style.display = 'block';
+
+    // Adicione a resposta ao servidor
+    fetch('http://localhost:3000/adicionar-resposta', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            nome: document.getElementById('username').value,
+            pontuacao: score
+        })
+    }).then((response) => response.json())
+    .then((data) => {
+        console.log(data);
+    })
+    .catch((error) => {
+        console.error(error);
+    });
+
+    // Recupere o rank do servidor
+    fetch('http://localhost:3000/get-rank')
+    .then((response) => response.json())
+    .then((rank) => {
+        const rankList = document.getElementById('rank-list');
+        rankList.innerHTML = '';
+        rank.forEach((resultado, indice) => {
+            const listItem = document.createElement('li');
+            listItem.innerText = `${indice + 1}. ${resultado.nome} - ${resultado.pontuacao} pontos`;
+            rankList.appendChild(listItem);
+        });
+    })
+    .catch((error) => {
+        console.error(error);
+    });
 }
 
 document.getElementById('more-info').addEventListener('click', function() {
