@@ -94,5 +94,26 @@ function displayResults(score) {
     document.getElementById('quiz-section').style.display = 'none';
     document.getElementById('result-section').style.display = 'block';
     document.getElementById('score').innerText = `Você acertou ${score} de ${questions.length} perguntas.`;
-    document.getElementById('ti-verde-text').innerText = "A TI Verde refere-se ao uso de tecnologia da informação de maneira sustentável, minimizando o impacto ambiental e promovendo a eficiência energética. Isso inclui práticas como a utilização de equipamentos com baixo consumo de energia, a reciclagem de eletrônicos e a promoção de uma cultura de sustentabilidade nas empresas. A adoção de TI Verde não só ajuda a preservar o meio ambiente, mas também pode resultar em economia de custos e melhoria da imagem corporativa. A implementação de políticas de TI Verde é essencial para garantir que as tecnologias da informação contribuam para um futuro mais sustentável.";
+    document.getElementById('ti-verde-text').innerText = "A TI Verde refere-se ao uso de tecnologia da informação de maneira sustentável, minimizando o impacto ambiental e promovendo a eficiência energética. Isso inclui práticas como a utilização de equipamentos com baixo consumo de energia , a reciclagem de eletrônicos e a promoção de uma cultura de sustentabilidade nas empresas. A adoção de TI Verde não só ajuda a preservar o meio ambiente, mas também pode resultar em economia de custos e melhoria da imagem corporativa. A implementação de políticas de TI Verde é essencial para garantir que as tecnologias da informação contribuam para um futuro mais sustentável.";
+    loadRank();
+}
+
+function loadRank() {
+    const rankList = document.getElementById('rank-list');
+    const username = document.getElementById('username').value;
+    const score = document.getElementById('score').innerText;
+    const rankItem = document.createElement('li');
+    rankItem.innerText = `${username} - ${score}`;
+    rankList.appendChild(rankItem);
+    saveRank(username, score);
+}
+
+function saveRank(username, score) {
+    const rankData = {
+        username: username,
+        score: score
+    };
+    const rankList = JSON.parse(localStorage.getItem('rankList')) || [];
+    rankList.push(rankData);
+    localStorage.setItem('rankList', JSON.stringify(rankList));
 }
