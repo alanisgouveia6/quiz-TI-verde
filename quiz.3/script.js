@@ -1,7 +1,7 @@
 const questions = [
     {
-        question: "O que significa TI Verde?",
-        options: ["Tecnologia da Informação sustentável", "Tecnologia da Informação tradicional", "Tecnologia da Informação em nuvem", "Tecnologia da Informação em hardware"],
+        question: "O que é TI Verde?",
+        options: ["Uso de tecnologia para reduzir o impacto ambiental", "Tecnologia para aumentar a produção", "Tecnologia sem impacto ambiental", "Nenhuma das anteriores"],
         answer: 0
     },
     {
@@ -10,110 +10,116 @@ const questions = [
         answer: 3
     },
     {
-        question: "O que é reciclagem?",
-        options: ["Transformar resíduos em novos produtos", "Descartar lixo", "Queimar resíduos", "Armazenar lixo"],
+        question: "O que significa sustentabilidade?",
+        options: ["Uso de recursos sem pensar no futuro", "Uso consciente de recursos", "Desperdício de recursos", "Nenhuma das anteriores"],
+        answer: 1
+    },
+    {
+        question: "Qual é um exemplo de reciclagem?",
+        options: ["Jogar lixo no chão", "Reutilizar garrafas", "Transformar papel usado em papel reciclado", "Queimar lixo"],
+        answer: 2
+    },
+    {
+        question: "O que é a economia circular?",
+        options: ["Modelo de produção que evita desperdício", "Modelo de produção linear", "Modelo de produção sem reciclagem", "Nenhuma das anteriores"],
+        answer: 0
+    },
+    {
+        question: "Qual é a importância da redução de resíduos?",
+        options: ["Aumenta a poluição", "Diminui o uso de recursos", "Não tem importância", "Aumenta o consumo"],
+        answer: 1
+    },
+    {
+        question: "O que significa 'reutilizar'?",
+        options: ["Usar algo novamente", "Descartar algo", "Reciclar algo", "Comprar algo novo"],
         answer: 0
     },
     {
         question: "Qual é um benefício da TI Verde?",
-        options: ["Redução de custos", "Aumento do consumo de energia", "Aumento de resíduos", "Nenhuma das anteriores"],
+        options: ["Redução de custos", "Aumento da poluição", "Desperdício de energia", "Nenhuma das anteriores"],
         answer: 0
     },
     {
-        question: "O que significa 'Reutilizar'?",
-        options: ["Usar um produto novamente", "Descartar um produto", "Reciclar um produto", "Comprar um novo produto"],
+        question: "O que é compostagem?",
+        options: ["Transformar resíduos orgânicos em adubo", "Queimar lixo", "Descartar lixo em aterros", "Nenhuma das anteriores"],
         answer: 0
     },
     {
-        question: "Qual é um exemplo de TI Verde?",
-        options: ["Computadores com eficiência energética", "Impressoras a jato de tinta", "Desktops antigos", "Servidores sem ventilação"],
-        answer: 0
-    },
-    {
-        question: "O que é a pegada de carbono?",
-        options: ["Emissões de gases de efeito estufa", "Uso de papel", "Consumo de água", "Descarte de eletrônicos"],
-        answer: 0
-    },
-    {
-        question: "Qual é a importância da sustentabilidade?",
-        options: ["Preservar recursos para futuras gerações", "Aumentar a produção", "Reduzir custos", "Aumentar o consumo"],
-        answer: 0
-    },
-    {
-        question: "Qual dos seguintes é um exemplo de 'Reciclar'?",
-        options: ["Transformar papel usado em novos produtos de papel", "Descartar papel no lixo comum", "Queimar papel", "Armazenar papel em casa"],
-        answer: 0
-    },
-    {
-        question: "O que é 'Reduzir'?",
-        options: ["Diminuir o consumo de recursos", "Aumentar a produção", "Comprar mais produtos", "Descartar produtos antigos"],
-        answer: 0
+        question: "Qual é a melhor forma de descartar eletrônicos?",
+        options: ["Jogar no lixo comum", "Reciclar em pontos específicos", " Descartar em aterros", "Queimar"],
+        answer: 1
     }
 ];
 
-document.getElementById('login-button').addEventListener('click', function() {
+let currentQuestionIndex = 0;
+let score = 0;
+
+document.getElementById('start-quiz').addEventListener('click', function() {
     const username = document.getElementById('username').value;
     if (username) {
-        document.getElementById('user-name').innerText = username;
         document.getElementById('login-section').style.display = 'none';
         document.getElementById('quiz-section').style.display = 'block';
-        loadQuiz();
+        showQuestion();
+    } else {
+        alert("Por favor, digite seu nome.");
     }
 });
 
-function loadQuiz() {
-    const quizForm = document.getElementById('quiz-form');
-    questions.forEach((q, index) => {
-        const questionElement = document.createElement('div');
-        questionElement.innerHTML = `<p>${index + 1}. ${q.question}</p>`;
-        q.options.forEach((option, i) => {
-            questionElement.innerHTML += `
-                <label>
-                    <input type="radio" name="question${index}" value="${i}" required>
-                    ${option}
-                </label><br>
-            `;
-        });
-        quizForm.appendChild(questionElement);
+function showQuestion() {
+    const questionContainer = document.getElementById('question-container');
+    const optionsContainer = document.getElementById('options-container');
+    const nextButton = document.getElementById('next-button');
+
+    questionContainer.innerText = questions[currentQuestionIndex].question;
+    optionsContainer.innerHTML = '';
+
+    questions[currentQuestionIndex].options.forEach((option, index) => {
+        const button = document.createElement('button');
+        button.innerText = option;
+        button.addEventListener('click', () => selectOption(index));
+        optionsContainer.appendChild(button);
     });
-    document.getElementById('submit-quiz').style.display = 'block';
+
+    nextButton.style.display = 'none';
 }
 
-document.getElementById('submit-quiz').addEventListener('click', function() {
-    let score = 0;
-    questions.forEach((q, index) => {
-        const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
-        if (selectedOption && parseInt(selectedOption.value) === q.answer) {
-            score++;
-        }
-    });
-    displayResults(score);
+function selectOption(index) {
+    if (index === questions[currentQuestionIndex].answer) {
+        score++;
+    }
+    currentQuestionIndex++;
+    const nextButton = document.getElementById('next-button');
+    if (currentQuestionIndex < questions.length) {
+        nextButton.style.display = 'block';
+    } else {
+        showResult();
+    }
+}
+
+document.getElementById('next-button').addEventListener('click', function() {
+    showQuestion();
 });
 
-function displayResults(score) {
+function showResult() {
     document.getElementById('quiz-section').style.display = 'none';
     document.getElementById('result-section').style.display = 'block';
-    document.getElementById('score').innerText = `Você acertou ${score} de ${questions.length} perguntas.`;
-    document.getElementById('ti-verde-text').innerText = "A TI Verde refere-se ao uso de tecnologia da informação de maneira sustentável, minimizando o impacto ambiental e promovendo a eficiência energética. Isso inclui práticas como a utilização de equipamentos com baixo consumo de energia , a reciclagem de eletrônicos e a promoção de uma cultura de sustentabilidade nas empresas. A adoção de TI Verde não só ajuda a preservar o meio ambiente, mas também pode resultar em economia de custos e melhoria da imagem corporativa. A implementação de políticas de TI Verde é essencial para garantir que as tecnologias da informação contribuam para um futuro mais sustentável.";
-    loadRank();
+    document.getElementById('result').innerText = `Você acertou ${score} de ${questions.length} perguntas.`;
+    document.getElementById('more-info').style.display = 'block';
 }
 
-function loadRank() {
-    const rankList = document.getElementById('rank-list');
-    const username = document.getElementById('username').value;
-    const score = document.getElementById('score').innerText;
-    const rankItem = document.createElement('li');
-    rankItem.innerText = `${username} - ${score}`;
-    rankList.appendChild(rankItem);
-    saveRank(username, score);
-}
-
-function saveRank(username, score) {
-    const rankData = {
-        username: username,
-        score: score
-    };
-    const rankList = JSON.parse(localStorage.getItem('rankList')) || [];
-    rankList.push(rankData);
-    localStorage.setItem('rankList', JSON.stringify(rankList));
-}
+document.getElementById('more-info').addEventListener('click', function() {
+    const infoText = `
+        A TI Verde refere-se ao uso de tecnologia da informação para promover a sustentabilidade ambiental. 
+        Isso inclui práticas como a redução do consumo de energia, a minimização de resíduos e a promoção da reciclagem. 
+        A sustentabilidade é um conceito que envolve o uso responsável dos recursos naturais, garantindo que as necessidades do presente sejam atendidas sem comprometer a capacidade das futuras gerações de atenderem suas próprias necessidades. 
+        Os 5 R's (Reduzir, Reutilizar, Reciclar, Repensar e Recusar) são princípios fundamentais para a gestão de resíduos e a promoção de um estilo de vida mais sustentável. 
+        A economia circular é um modelo que busca eliminar o desperdício e promover a reutilização de recursos, criando um ciclo contínuo de uso e reciclagem. 
+        A compostagem é uma prática que transforma resíduos orgânicos em adubo, contribuindo para a redução de resíduos e a melhoria do solo. 
+        A correta destinação de eletrônicos é crucial para evitar a poluição e a contaminação do meio ambiente. 
+        A adoção de práticas sustentáveis na TI não só ajuda o meio ambiente, mas também pode resultar em economia de custos e eficiência operacional. 
+        A conscientização sobre esses temas é essencial para promover mudanças significativas em nossa sociedade.
+        Espero que tenha gostado do quiz e que tenha te feito refletir sobre os impactos que no meio ambiente!
+    `;
+    document.getElementById('info-text').innerText = infoText;
+    document.getElementById('info-text').style.display = 'block';
+});
