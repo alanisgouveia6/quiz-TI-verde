@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #D9CBAE; /* Marrom claro */
     margin: 0;
     padding: 20px;
 }
@@ -18,22 +18,28 @@ h1, h2 {
     text-align: center;
 }
 
-input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-}
-
 button {
-    width: 100%;
-    padding: 10px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 5px;
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 16px;
     cursor: pointer;
+    background-color: #4CAF50; /* Verde para os outros botões */
+    color: white; /* Texto branco */
+    border: none; /* Sem borda */
+    border-radius: 5px; /* Bordas arredondadas */
+    transition: background-color 0.3s; /* Transição suave para a cor de fundo */
 }
 
 button:hover {
-    background-color: #218838;
+    background-color: #45a049; /* Verde mais escuro ao passar o mouse */
+}
+
+/* Estilo específico para o botão "Próxima Pergunta" */
+#next-button {
+    background-color: #8B5A2B; /* Marrom escuro */
+}
+
+#next-button:hover {
+    background-color: #7A4B2A; /* Marrom mais escuro ao passar o mouse */
 }
