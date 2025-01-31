@@ -118,7 +118,6 @@ document.getElementById('more-info').addEventListener('click', function() {
         A correta destinação de eletrônicos é crucial para evitar a poluição e a contaminação do meio ambiente. 
         A adoção de práticas sustentáveis na TI não só ajuda o meio ambiente, mas também pode resultar em economia de custos e eficiência operacional. 
         A conscientização sobre esses temas é essencial para promover mudanças significativas em nossa sociedade.
-        Espero que tenha gostado do quiz e que tenha te feito refletir sobre os impactos que no meio ambiente!
     `;
     document.getElementById('info-text').innerText = infoText;
     document.getElementById('info-text').style.display = 'block';
